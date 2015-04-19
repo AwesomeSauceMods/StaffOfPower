@@ -2,9 +2,9 @@ package com.awesomesauce.minecraft.forge.staffofpower
 
 import com.awesomesauce.minecraft.forge.core.lib.TAwesomeSauceMod
 import com.awesomesauce.minecraft.forge.core.lib.util.ItemUtil
-import cpw.mods.fml.common.Mod
 import cpw.mods.fml.common.Mod.EventHandler
-import cpw.mods.fml.common.event.{FMLPostInitializationEvent, FMLInitializationEvent, FMLPreInitializationEvent}
+import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent}
+import cpw.mods.fml.common.{Mod, ModMetadata}
 import net.minecraft.item.Item
 
 /**
@@ -14,9 +14,16 @@ import net.minecraft.item.Item
 object StaffOfPower extends TAwesomeSauceMod {
   final val MODID = "StaffOfPower"
   final val MODNAME = "Staff Of Power"
+  @Mod.Metadata(MODID)
+  var metadata: ModMetadata = null
+  var awesomeiteStaff: Item = null
+
   def getModID = MODID
+
   def getModName = MODNAME
-  var awesomeiteStaff : Item = null
+
+  def getTextureDomain = "staffofpower"
+
   def getTabIconItem = () => awesomeiteStaff
   @EventHandler
   def aspri(e: FMLPreInitializationEvent) = awesomesaucepreinit(e)
