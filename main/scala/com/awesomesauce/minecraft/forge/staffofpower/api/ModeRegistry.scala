@@ -9,24 +9,24 @@ import net.minecraft.item.ItemStack
  * Created by Sandra on 20/04/2015.
  */
 object ModeRegistry {
-  val list: util.ArrayList[Mode] = new util.ArrayList[Mode]()
+  val modeList = new util.ArrayList[Mode]()
 
   def registerMode(mode: Mode) = {
-    list.add(mode)
-    mode.number = list.indexOf(mode)
+    modeList.add(mode)
+    mode.number = modeList.indexOf(mode)
   }
 
   def getNextMode(stack: ItemStack, player: EntityPlayer, mode: Mode): Mode = {
     val i = mode.number
-    for (k <- Range(i + 1, list.size))
-      if (list.get(k).canUseOn(stack, player)) {
-        return list.get(k)
+    for (k <- Range(i + 1, modeList.size))
+      if (modeList.get(k).canUseOn(stack, player)) {
+        return modeList.get(k)
       }
-    for (k <- Range(0, list.size)) {
-      if (list.get(k).canUseOn(stack, player)) {
-        return list.get(k)
+    for (k <- Range(0, modeList.size)) {
+      if (modeList.get(k).canUseOn(stack, player)) {
+        return modeList.get(k)
       }
     }
-    list.get(0)
+    modeList.get(0)
   }
 }

@@ -17,14 +17,6 @@ class ItemAwesomeiteStaff extends Item {
     nlist.add(EnumChatFormatting.ITALIC+"Right click to look at.")
   }
 
-  def initializeStack(stack: ItemStack) = {
-    if (!stack.hasTagCompound)
-      stack.setTagCompound(new NBTTagCompound)
-    if (!stack.getTagCompound.hasKey("mode")) {
-      stack.getTagCompound.setInteger("mode", 0)
-    }
-  }
-
   override def onItemRightClick(stack: ItemStack, world: World, player: EntityPlayer): ItemStack = {
     initializeStack(stack)
     if (player.isSneaking) {
@@ -35,6 +27,14 @@ class ItemAwesomeiteStaff extends Item {
     stack
   }
 
+  def initializeStack(stack: ItemStack) = {
+    if (!stack.hasTagCompound)
+      stack.setTagCompound(new NBTTagCompound)
+    if (!stack.getTagCompound.hasKey("mode")) {
+      stack.getTagCompound.setInteger("mode", 0)
+    }
+  }
+
   def cycleMode(stack: ItemStack, player: EntityPlayer) = {
     val mode: Mode = ModeRegistry.getNextMode(stack, player, getMode(stack))
     stack.getTagCompound.setInteger("mode", mode.number)
@@ -42,8 +42,6 @@ class ItemAwesomeiteStaff extends Item {
     PlayerUtil.sendChatMessage(player, mode.getDescription)
   }
 
-  def getMode(stack: ItemStack): Mode = {
-    ModeRegistry.list.get(stack.getTagCompound.getInteger("mode"))
-  }
+  def getMode(stack: ItemStack): Mode = ModeRegistry.modeList.get(stack.getTagCompound.getInteger("mode"))
 
 }
